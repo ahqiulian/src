@@ -1,0 +1,18 @@
+<launch>
+
+     <arg name="navigation" default="false"/>
+     <arg name="odom_frame_id"  default="odom_combined"/>
+
+
+     <include file="$(find lslidar_driver)/launch/lslidar_serial.launch"/>
+     <include file="$(find stm32_comm)/launch/robot_core.launch">
+       <arg name="navigation" value="$(arg navigation)"/>
+       <arg name="odom_frame_id"   value="$(arg odom_frame_id)"/>
+      </include>
+     <include file="$(find slam_pkg)/launch/algorithm_hector.launch" />
+
+     
+
+
+     
+</launch>

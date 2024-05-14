@@ -1,0 +1,23 @@
+<launch>
+
+  <!-- 是否在建图时开启导航 默认不开启 仅在rrt自主建图时同时进行-->
+  <arg name="navigation" default="false"/>
+  <arg name="odom_frame_id"  default="odom_combined"/>
+
+  <include file="$(find lslidar_driver)/launch/lslidar_serial.launch"/>
+
+
+  <include file="$(find slam_pkg)/launch/algorithm_gmapping.launch" />
+  <!-- 开启机器人底层相关节点  -->
+  <include file="$(find stm32_comm)/launch/robot_core.launch">
+    <arg name="navigation" value="$(arg navigation)"/>
+    <arg name="odom_frame_id"   value="$(arg odom_frame_id)"/>
+  </include>
+
+
+
+
+
+</launch>
+
+

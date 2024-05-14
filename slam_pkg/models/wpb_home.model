@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot name="wpb_home_gazebo">
+
+<link name="base_footprint">
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.05 0.05 0.001" />
+    </geometry>
+  </visual>
+</link>
+
+<joint name="base_joint" type="fixed">
+  <origin xyz="0 0 0" rpy="0 0 0" />
+  <parent link="base_footprint"/>
+  <child link="base_link" />
+</joint>
+
+<!-- base -->
+<link name="base_link">
+  <visual>
+   <geometry>
+    <box size="0.01 0.01 0.001" />
+   </geometry>
+   <origin rpy = "0 0 0" xyz = "0 0 0"/>
+  </visual>
+</link>
+
+<!-- body -->
+<link name = "body_link">
+  <visual>
+    <geometry>
+      <mesh filename="package://wpr_simulation/meshes/wpb_home/wpb_home_std.dae" scale="1 1 1"/>
+    </geometry>
+    <origin rpy = "1.57 0 1.57" xyz = "-.225 -0.225 0"/>
+  </visual>
+  <collision>
+    <origin xyz="0.001 0 .065" rpy="0 0 0" />
+    <geometry>
+      <cylinder length="0.13" radius="0.226"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="20"/>
+    <inertia ixx="4.00538" ixy="0.0" ixz="0.0" iyy="4.00538" iyz="0.0" izz="0.51076"/>
+  </inertial>
+</link>
+<joint name = "base_to_body" type = "fixed">
+  <parent link = "base_link"/>
+  <child link = "body_link"/>
+  <origin rpy="0 0 0" xyz="0 0 0"/> <!--pos-->
+</joint>
+
+
+
+<!-- Lidar -->
+<link name = "laser">
+  <visual>
+   <geometry>
+      <cylinder length="0.001" radius="0.001"/>
+   </geometry>
+   <origin rpy = "0 0 0" xyz = "0 0 0"/>
+  </visual>
+</link>
+<joint name="laser_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.15"  /> <!--pos-->
+    <parent link="base_link" />
+    <child link="laser" />
+</joint>
+
+</robot>

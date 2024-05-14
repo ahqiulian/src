@@ -1,0 +1,24 @@
+<launch>
+      <arg name="if_voice" default="false"/>
+      <node pkg="tf" type="static_transform_publisher" name="base_to_link" args="0 0 0 0 0 0 base_footprint base_link 100" />
+      <param name = "robot_description" textfile = "$(find slam_pkg)/urdf/mini_mec_robot.urdf"/> 
+
+     <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_gyro_link" 
+     args="0.0 0.0 0.0 0.0 0.0 0.0 /base_footprint /gyro_link 40" /> 
+     <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" 
+     args="0.0 0.0 0.0 0 0 0.0 /base_footprint /base_link 40" /> 
+     <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+     args="0.12 0.0 0.1 0.0 0.0 0.0 /base_link /laser 40" />
+      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+</launch>
+
+
+
+
+
+
+
+
+
+ 

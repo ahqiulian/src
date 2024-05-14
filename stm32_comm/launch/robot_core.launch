@@ -1,0 +1,28 @@
+<launch>
+ 
+  <!--是否开启导航功能 在导航相关文件中开启 此处默认不开启-->
+  <arg name="navigation"  default="false"/>
+
+  <arg name="odom_frame_id"  default="odom_combined"/>
+
+  <!-- turn on base_serial 开启底层单片机的控制节点  -->
+  <include file="$(find stm32_comm)/launch/base_serial.launch" >
+    <arg name="odom_frame_id"  value="$(arg odom_frame_id)"/>
+  </include> 
+
+  <!-- 开启teb_local_planner导航算法 与dwa算法相比效果更佳-->
+  <include file="$(find nav_pkg)/launch/teb_local_planner.launch" if="$(arg navigation)" />
+  <!-- 开启dwa_local_planner导航算法-->
+  <!-- <include file="$(find nav_pkg)/launch/dwa_local_planner.launch" if="$(arg navigation)"> -->
+ 
+  <include file="$(find slam_pkg)/launch/model.launch" />
+
+  <!-- 扩张卡尔曼滤波 发布odom_combined到footprint的TF,即小车定位 使用cartographer算法时不使用该滤波算法-->
+  <include file="$(find stm32_comm)/launch/robot_pose_ekf.launch" />
+    
+
+ </launch>
+
+
+
+
